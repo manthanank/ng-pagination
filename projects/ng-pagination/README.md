@@ -1,24 +1,53 @@
-# NgPagination
+# Ng Pagination Library
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+This is a simple pagination library for Angular 2+ applications. It is a simple component that can be used to paginate any list of items.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project ng-pagination` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-pagination`.
-> Note: Don't forget to add `--project ng-pagination` or else it will be added to the default project in your `angular.json` file. 
+To install this library, run:
 
-## Build
+```bash
+npm install @manthanankolekar/ng-pagination
+```
 
-Run `ng build ng-pagination` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Usage
 
-## Publishing
+Import in your `app.component.ts`:
 
-After building your library with `ng build ng-pagination`, go to the dist folder `cd dist/ng-pagination` and run `npm publish`.
+```typescript
+import { Component } from '@angular/core';
 
-## Running unit tests
+import { NgPaginationComponent } from '@manthanankolekar/ng-pagination';
 
-Run `ng test ng-pagination` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    NgPaginationComponent
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'ng-pagination';
+  currentPage = 1;
 
-## Further help
+  onPageChange(page: number) {
+    this.currentPage = page;
+  }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  constructor() {}
+
+  ngOnInit() {}
+}
+```
+
+Add the following to your `app.component.html`:
+
+```html
+<ng-pagination [totalItems]="100" [itemsPerPage]="10" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></ng-pagination>
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

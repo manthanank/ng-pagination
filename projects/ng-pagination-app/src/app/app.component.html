@@ -1,0 +1,7 @@
+<div class="container">
+  <h1>{{ title }}</h1>
+
+  <ng-pagination [totalItems]="100" [itemsPerPage]="10" [currentPage]="currentPage" (pageChange)="onPageChange($event)">
+  </ng-pagination>
+
+</div>

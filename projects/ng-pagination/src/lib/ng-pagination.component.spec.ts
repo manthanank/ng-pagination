@@ -6,10 +6,12 @@ describe('NgPaginationComponent', () => {
   let component: NgPaginationComponent;
   let fixture: ComponentFixture<NgPaginationComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [NgPaginationComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NgPaginationComponent]
+    })
+    .compileComponents();
+
     fixture = TestBed.createComponent(NgPaginationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

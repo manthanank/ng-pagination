@@ -35,9 +35,98 @@
           }
         }
       }
+    },
+    "ng-pagination-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ng-pagination-app",
+      "sourceRoot": "projects/ng-pagination-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/ng-pagination-app",
+            "index": "projects/ng-pagination-app/src/index.html",
+            "browser": "projects/ng-pagination-app/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/ng-pagination-app/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/ng-pagination-app/public"
+              }
+            ],
+            "styles": [
+              "projects/ng-pagination-app/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "ng-pagination-app:build:production"
+            },
+            "development": {
+              "buildTarget": "ng-pagination-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/ng-pagination-app/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/ng-pagination-app/public"
+              }
+            ],
+            "styles": [
+              "projects/ng-pagination-app/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   },
   "cli": {
-    "analytics": "13b61630-86e6-4c4f-a2a4-d67e2dbb909d"
+    "analytics": "a0228a4b-190e-476e-88e9-2cb71d518413"
   }
 }
