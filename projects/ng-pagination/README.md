@@ -1,6 +1,6 @@
-# Ng Pagination Library
+# Ng Pagination
 
-This is a simple pagination library for Angular 2+ applications. It is a simple component that can be used to paginate any list of items.
+This is a simple pagination library for Angular applications.
 
 ## Installation
 
@@ -47,6 +47,10 @@ Add the following to your `app.component.html`:
 ```html
 <ng-pagination [totalItems]="100" [itemsPerPage]="10" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></ng-pagination>
 ```
+
+## Demo
+
+[StackBlitz](https://stackblitz.com/edit/stackblitz-starters-cp1rbo)
 
 ## License
 
