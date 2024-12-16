@@ -2,6 +2,11 @@
 
 This is a simple pagination library for Angular applications.
 
+![npm](https://img.shields.io/npm/dw/@manthanankolekar/ng-pagination)
+![npm](https://img.shields.io/npm/dm/@manthanankolekar/ng-pagination)
+![npm](https://img.shields.io/npm/dy/@manthanankolekar/ng-pagination)
+![npm](https://img.shields.io/npm/dt/@manthanankolekar/ng-pagination)
+
 ## Installation
 
 To install this library, run:
