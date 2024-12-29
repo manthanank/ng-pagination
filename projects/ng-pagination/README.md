@@ -55,7 +55,7 @@ Add the following to your `app.component.html`:
 
 ## Demo
 
-[StackBlitz](https://stackblitz.com/edit/stackblitz-starters-cp1rbo)
+[StackBlitz](https://stackblitz.com/edit/ng-pagination)
 
 ## License
 
