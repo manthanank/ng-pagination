@@ -2,45 +2,61 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'ng-pagination',
-  standalone: true,
-  imports: [],
   template: `
-    <div class="pagination">
-      <button class="nav-button" (click)="previousPage()" [disabled]="currentPage === 1">
-        <span class="nav-text">Previous</span>
-        <span class="nav-icon">&lt;</span>
-      </button>
+    <div class="pagination-container">
+      <div class="pagination">
+        <button class="nav-button" (click)="previousPage()" [disabled]="currentPage === 1">
+          <span class="nav-icon">&lt;</span>
+          <span class="nav-text">Previous</span>
+        </button>
 
-      @for (page of displayedPages; track $index) {
-      <ng-container>
-        @if (page === '...') {
-          <span class="ellipsis">{{ page }}</span>
-        } @else {
-          <button 
-            (click)="goToPage(page)" 
-            [class.active]="page === currentPage"
-            class="page-button">
-            {{ page }}
-          </button>
+        @for (page of displayedPages; track $index) {
+          <ng-container>
+            @if (page === '...') {
+              <span class="ellipsis">{{ page }}</span>
+            }
+            @else {
+              <button 
+                (click)="goToPage(page)" 
+                [class.active]="page === currentPage"
+                class="page-button">
+                {{ page }}
+              </button>
+            }
+          </ng-container>
         }
-      </ng-container>
-      }
 
-      <button class="nav-button" (click)="nextPage()" [disabled]="currentPage === totalPages">
-        <span class="nav-text">Next</span>
-        <span class="nav-icon">&gt;</span>
-      </button>
+        <button class="nav-button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+          <span class="nav-text">Next</span>
+          <span class="nav-icon">&gt;</span>
+        </button>
+      </div>
+
+      <div class="items-per-page">
+        <label for="itemsPerPage">Items per page:</label>
+        <select id="itemsPerPage" (change)="onItemsPerPageChange($event)">
+          @for (option of itemsPerPageOptions; track $index) {
+            <option [value]="option" [selected]="option === itemsPerPage">{{ option }}</option>
+          }
+        </select>
+      </div>
     </div>
   `,
   styles: `
+    .pagination-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
     .pagination {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
       gap: 8px;
-      margin: 20px 0;
-      padding: 0 10px;
     }
 
     button {
@@ -90,6 +106,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
       justify-content: center;
     }
 
+    .items-per-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .items-per-page label {
+      margin-right: 8px;
+    }
+
     @media (max-width: 600px) {
       .pagination {
         gap: 4px;
@@ -124,8 +150,10 @@ export class NgPaginationComponent implements OnInit {
   @Input() itemsPerPage: number = 10;
   @Input() currentPage: number = 1;
   @Input() maxDisplayedPages: number = 7;
+  @Input() itemsPerPageOptions: number[] = [5, 10, 20, 50];
 
   @Output() pageChange = new EventEmitter<number>();
+  @Output() itemsPerPageChange = new EventEmitter<number>();
 
   totalPages: number = 0;
   displayedPages: (number | string)[] = [];
@@ -190,5 +218,19 @@ export class NgPaginationComponent implements OnInit {
       this.generatePages();
       this.pageChange.emit(this.currentPage);
     }
+  }
+
+  onItemsPerPageChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const newItemsPerPage = parseInt(selectElement.value, 10);
+    this.itemsPerPage = newItemsPerPage;
+    this.currentPage = 1; // Reset to first page
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.generatePages();
+    this.itemsPerPageChange.emit(this.itemsPerPage);
+  }
+
+  trackByFn(index: number, item: number | string): number | string {
+    return item;
   }
 }

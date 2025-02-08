@@ -10,7 +10,6 @@ interface Item {
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [NgPaginationComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -37,6 +36,11 @@ export class AppComponent implements OnInit {
 
   onPageChange(page: number) {
     this.currentPage = page;
+    this.updateDisplayedItems();
+  }
+
+  onItemsPerPageChange(itemsPerPage: number) {
+    this.itemsPerPage = itemsPerPage;
     this.updateDisplayedItems();
   }
 

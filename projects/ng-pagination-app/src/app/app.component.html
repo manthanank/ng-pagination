@@ -14,6 +14,8 @@
     [totalItems]="totalItems" 
     [itemsPerPage]="itemsPerPage" 
     [currentPage]="currentPage" 
-    (pageChange)="onPageChange($event)">
+    [itemsPerPageOptions]="[5, 10, 20, 50]"
+    (pageChange)="onPageChange($event)"
+    (itemsPerPageChange)="onItemsPerPageChange($event)">
   </ng-pagination>
 </div>

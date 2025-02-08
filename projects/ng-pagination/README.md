@@ -20,36 +20,71 @@ npm install @manthanankolekar/ng-pagination
 Import in your `app.component.ts`:
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgPaginationComponent } from '../../../ng-pagination/src/lib/ng-pagination.component';
 
-import { NgPaginationComponent } from '@manthanankolekar/ng-pagination';
+interface Item {
+  id: number;
+  title: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-root',
-  imports: [
-    NgPaginationComponent
-  ],
+  imports: [NgPaginationComponent, CommonModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrl: './app.component.css',
 })
-export class AppComponent {
-  title = 'ng-pagination';
+export class AppComponent implements OnInit {
+  title = 'Pagination Example';
+  items: Item[] = [];
+  displayedItems: Item[] = [];
+  
+  totalItems = 100;
+  itemsPerPage = 10;
   currentPage = 1;
+
+  ngOnInit() {
+    // Generate dummy data
+    this.items = Array.from({ length: this.totalItems }, (_, i) => ({
+      id: i + 1,
+      title: `Item ${i + 1}`,
+      description: `Description for item ${i + 1}`
+    }));
+    
+    this.updateDisplayedItems();
+  }
 
   onPageChange(page: number) {
     this.currentPage = page;
+    this.updateDisplayedItems();
   }
 
-  constructor() {}
+  onItemsPerPageChange(itemsPerPage: number) {
+    this.itemsPerPage = itemsPerPage;
+    this.updateDisplayedItems();
+  }
 
-  ngOnInit() {}
+  private updateDisplayedItems() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.displayedItems = this.items.slice(startIndex, endIndex);
+  }
 }
 ```
 
 Add the following to your `app.component.html`:
 
 ```html
-<ng-pagination [totalItems]="100" [itemsPerPage]="10" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></ng-pagination>
+  <ng-pagination 
+    [totalItems]="totalItems" 
+    [itemsPerPage]="itemsPerPage" 
+    [currentPage]="currentPage" 
+    [itemsPerPageOptions]="[5, 10, 20, 50]"
+    (pageChange)="onPageChange($event)"
+    (itemsPerPageChange)="onItemsPerPageChange($event)">
+  </ng-pagination>
 ```
 
 ## Demo
