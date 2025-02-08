@@ -1,27 +1,61 @@
-# NgPagination
+# Ng Pagination
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8.
+This is a simple pagination library for Angular applications.
 
-## Development server
+![npm](https://img.shields.io/npm/dw/@manthanankolekar/ng-pagination)
+![npm](https://img.shields.io/npm/dm/@manthanankolekar/ng-pagination)
+![npm](https://img.shields.io/npm/dy/@manthanankolekar/ng-pagination)
+![npm](https://img.shields.io/npm/dt/@manthanankolekar/ng-pagination)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Installation
 
-## Code scaffolding
+To install this library, run:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+npm install @manthanankolekar/ng-pagination
+```
 
-## Build
+## Usage
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Import in your `app.component.ts`:
 
-## Running unit tests
+```typescript
+import { Component } from '@angular/core';
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+import { NgPaginationComponent } from '@manthanankolekar/ng-pagination';
 
-## Running end-to-end tests
+@Component({
+  selector: 'app-root',
+  imports: [
+    NgPaginationComponent
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'ng-pagination';
+  currentPage = 1;
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+  onPageChange(page: number) {
+    this.currentPage = page;
+  }
 
-## Further help
+  constructor() {}
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+  ngOnInit() {}
+}
+```
+
+Add the following to your `app.component.html`:
+
+```html
+<ng-pagination [totalItems]="100" [itemsPerPage]="10" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></ng-pagination>
+```
+
+## Demo
+
+[StackBlitz](https://stackblitz.com/edit/ng-pagination)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

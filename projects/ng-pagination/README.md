@@ -26,7 +26,6 @@ import { NgPaginationComponent } from '@manthanankolekar/ng-pagination';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [
     NgPaginationComponent
   ],
